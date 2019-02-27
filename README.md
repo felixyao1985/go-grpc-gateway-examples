@@ -77,4 +77,5 @@ log 产生后，会暂存在内存的buffer中。只有显示的调用 glog.Flus
 ```
 
 ####调用测试
+
 $ curl -d '{"ID":1}' -X GET 'http://localhost:3344/api/menu'
