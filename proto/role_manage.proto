@@ -1,0 +1,29 @@
+syntax = "proto3";
+package test;
+
+service Menu {
+    rpc Save (MenuModel) returns (Res) {}
+    rpc List (RepMenuList) returns (Res) {}
+    rpc View (RepMenuView) returns (Res) {}
+}
+
+message RepMenuList  {
+    int32 PID = 1;
+}
+message RepMenuView  {
+    int32 ID = 1;
+}
+
+message MenuModel  {
+    int32 ID = 1;
+    int32 PID = 2;
+    string CODE = 3;
+    string URL = 4;
+    string TYPE = 5;
+}
+
+message Res {
+    int32 code = 1;
+    string msg = 2;
+    repeated MenuModel data_info = 3;
+}
