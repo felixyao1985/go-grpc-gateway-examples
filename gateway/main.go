@@ -14,10 +14,16 @@ import (
 )
 
 var (
-	echoEndpoint = flag.String("hello_endpoint", "localhost:50051", "endpoint of YourService")
+	//常规服务器通信
+	//echoEndpoint = flag.String("hello_endpoint", "localhost:50051", "endpoint of YourService")
+
+	//基于docker
+	echoEndpoint = flag.String("hello_endpoint", "felixserver:50051", "endpoint of YourService")
 )
 
 func run() error {
+
+
 	ctx := context.Background()
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()

@@ -77,5 +77,18 @@ log 产生后，会暂存在内存的buffer中。只有显示的调用 glog.Flus
 ```
 
 ####调用测试
+```gotemplate
+   交叉编译
+    set GOARCH=amd64
+    
+    set GOOS=linux
+    
+    go build xx.go
 
+
+```
 $ curl -d '{"ID":1}' -X GET 'http://localhost:3344/api/menu'
+
+#Dokcer 部署
+  
+  #### https://github.com/felixyao1985/go-grpc-gateway-examples/blob/master/docker.md

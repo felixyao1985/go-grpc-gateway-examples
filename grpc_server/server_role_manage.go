@@ -37,7 +37,7 @@ func (s *server) Save(ctx context.Context, in *gw.MenuModel) (*gw.Res, error) {
 }
 
 func main() {
-	lis, err := net.Listen("tcp", ":50051") //监听所有网卡8028端口的TCP连接
+	lis, err := net.Listen("tcp", "0.0.0.0:50051") //监听所有网卡8028端口的TCP连接
 
 	if err != nil {
 		log.Fatalf("监听失败: %v", err)
