@@ -12,12 +12,13 @@ service Menu {
     }
     rpc List (RepMenuList) returns (Res) {
         option (google.api.http) = {
-          get: "/api/menus"
+          get: "/api/menus/{PID}"
         };
     }
     rpc View (RepMenuView) returns (Res) {
         option (google.api.http) = {
-          get: "/api/menu"
+          get: "/api/menu/{ID}"
+          body:"*"
         };
     }
 }
@@ -38,7 +39,7 @@ message MenuModel  {
 }
 
 message Res {
-    int32 code = 1;
+    int64 code = 1;
     string msg = 2;
     repeated MenuModel data_info = 3;
 }

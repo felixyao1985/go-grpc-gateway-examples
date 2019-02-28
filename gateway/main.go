@@ -15,10 +15,10 @@ import (
 
 var (
 	//常规服务器通信
-	//echoEndpoint = flag.String("hello_endpoint", "localhost:50051", "endpoint of YourService")
+	echoEndpoint = flag.String("hello_endpoint", "localhost:50051", "endpoint of YourService")
 
 	//基于docker
-	echoEndpoint = flag.String("hello_endpoint", "felixserver:50051", "endpoint of YourService")
+	//echoEndpoint = flag.String("hello_endpoint", "felixserver:50051", "endpoint of YourService")
 )
 
 func run() error {

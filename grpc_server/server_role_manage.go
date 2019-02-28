@@ -1,12 +1,14 @@
 package main
 
 import (
+	"fmt"
+	gw "go-grpc-gateway-examples/proto"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	"log"
 	"net"
-	gw "go-grpc-gateway-examples/proto"
+	"vsiapi/camera"
 )
 
 // 业务实现方法的容器
@@ -23,21 +25,41 @@ func (s *server) List(ctx context.Context, in *gw.RepMenuList) (*gw.Res, error) 
 }
 
 func (s *server) View(ctx context.Context, in *gw.RepMenuView) (*gw.Res, error) {
+	fmt.Println("Menu View 参数:",in)
+	newRow0 := camera.MENU{}
+
+	id := int(in.ID)
+	List ,_:= newRow0.View(id)
+	Menu := &gw.MenuModel{}
+	Menu.ID = int32(List.ID)
+	Menu.CODE = List.CODE
+	Menu.PID = int32(List.PID)
+	Menu.URL = List.URL
 
 	Meuns := []*gw.MenuModel{}
+	Meuns = append(Meuns,Menu)
 
+	fmt.Println("列表 List1:",List)
 	return &gw.Res{Code:1,Msg:"GRPC Menu View调用成功",DataInfo:Meuns}, nil
 }
 
 func (s *server) Save(ctx context.Context, in *gw.MenuModel) (*gw.Res, error) {
+	fmt.Println("Menu Save 参数:",in)
+
+	cMENU := camera.MENU{}
+	cMENU.CODE = in.CODE
+	cMENU.Insert()
 
 	Meuns := []*gw.MenuModel{}
+
+	Menu := &gw.MenuModel{CODE:cMENU.CODE}
+	Meuns = append(Meuns,Menu)
 
 	return &gw.Res{Code:1,Msg:"GRPC Menu Save调用成功",DataInfo:Meuns}, nil
 }
 
 func main() {
-	lis, err := net.Listen("tcp", "0.0.0.0:50051") //监听所有网卡8028端口的TCP连接
+	lis, err := net.Listen("tcp", "0.0.0.0:50051") //监听所有网卡50051端口的TCP连接
 
 	if err != nil {
 		log.Fatalf("监听失败: %v", err)
