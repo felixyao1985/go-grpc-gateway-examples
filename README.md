@@ -89,6 +89,8 @@ log 产生后，会暂存在内存的buffer中。只有显示的调用 glog.Flus
 ```
 $ curl -d '{"ID":1}' -X GET 'http://localhost:3344/api/menu'
 
-#Dokcer 部署
+###Dokcer 部署
   
   #### https://github.com/felixyao1985/go-grpc-gateway-examples/blob/master/docker.md
+  
+#JWT中间件 目前实现有点粗糙，还没优化思路
