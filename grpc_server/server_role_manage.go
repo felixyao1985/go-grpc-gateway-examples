@@ -59,12 +59,32 @@ func (s *server) Save(ctx context.Context, in *gw.MenuModel) (*gw.Res, error) {
 }
 
 func main() {
+
+
 	lis, err := net.Listen("tcp", "0.0.0.0:50051") //监听所有网卡50051端口的TCP连接
 
 	if err != nil {
 		log.Fatalf("监听失败: %v", err)
 	}
-	s := grpc.NewServer() //创建gRPC服务
+
+
+	/*
+		interceptor相当于一个中间件，再每个服务器之前会进行处理
+	*/
+	var opts []grpc.ServerOption
+	// 注册interceptor
+	var interceptor grpc.UnaryServerInterceptor
+	interceptor = func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp interface{}, err error) {
+
+		/*
+			一些中间逻辑代码
+		*/
+		fmt.Println("server_role_manage 调用了interceptro")
+		return handler(ctx, req)
+	}
+	opts = append(opts, grpc.UnaryInterceptor(interceptor))
+
+	s := grpc.NewServer(opts...) //创建gRPC服务
 
 	/**注册接口服务
 	 * 以定义proto时的service为单位注册，服务中可以有多个方法
